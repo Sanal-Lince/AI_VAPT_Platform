@@ -1,11 +1,18 @@
-version:"3"
-services:
- backend:
-  build:../backend
-  ports:
-   - "8000:8000"
+version: "3.9"
 
- postgres:
-  image:postgres
-  environment:
-   POSTGRES_PASSWORD:root
+services:
+  postgres:
+    image: postgres:15
+    container_name: ai_vapt_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ai_vapt
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
